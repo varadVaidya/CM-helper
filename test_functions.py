@@ -51,21 +51,29 @@ from functions import *
 # print("B : \n",B,"\n")
 # print("D : \n",D,"\n")
 
-# different example
-theta_k = [45,0,45]
-h_k = [-6,-3,3,6]
-n_lamina = 3
+# # different example
+# theta_k = [45,0,45]
+# h_k = [-6,-3,3,6]
+# n_lamina = 3
 
-Q = np.array([
-    [20,0.7,0],
-    [0.7,2,0],
-    [0,0,0.7]
-])
-Q = [Q]
+# Q = np.array([
+#     [20,0.7,0],
+#     [0.7,2,0],
+#     [0,0,0.7]
+# ])
+# Q = [Q]
 
-A,B,D = laminate_matrices(n_lamina, h_k= h_k, theta_k= theta_k, Q= Q)
-print("A : \n",A,"\n")
-print("B : \n",B,"\n")
-print("D : \n",D,"\n")
+# A,B,D = laminate_matrices(n_lamina, h_k= h_k, theta_k= theta_k, Q= Q)
+# print("A : \n",A,"\n")
+# print("B : \n",B,"\n")
+# print("D : \n",D,"\n")
+
+## isotropic test
+A = np.array([[9.1425,3.0475,0],[3.0475,9.1425,0],[0,0,3.0475]])
+E_R,G_R,V_R = quasi_isotropic_constants(A,1)
+
+print("E_R : \n",E_R,"\n")
+print("G_R : \n",G_R,"\n")
+print("V_R : \n",V_R,"\n")
 
 

@@ -1,6 +1,6 @@
 # write all the helper functions here
 import numpy as np
-
+np.set_printoptions(precision=3)
 def test_helper():
     print("helper function is working")
     
@@ -117,6 +117,23 @@ def laminate_matrices(n_lamina,h_k,theta_k,Q):
     D = D/3
     
     return A,B,D
+
+def quasi_isotropic_constants(A,thickness):
+    A11 = A[0][0]
+    A22 = A[1][1]
+    A12 = A[0][1]
+    A66 = A[2][2]
+    t = thickness
+    
+    E_R = (A11*A22 - A12**2)/(t * A22)
+    G_R = A66/t
+    V_R = A12/A22
+    
+    return E_R,G_R,V_R
+
+
+    
+    
 
 
         
