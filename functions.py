@@ -69,5 +69,65 @@ def S_bar_matrix(Q,T):
     return S_bar
 
 
+## laminate functions...
+
+def laminate_matrices(n_lamina,h_k,theta_k,Q):
+    """
+    n_lamina: number of lamina
+    
+    h_k: z_coordinate list of the lamina.. 
+        used in A,B,C,D calc..
+        ie. A = sum(Qbar * (h_k - h_k-1))
+        h_k will go from top to bottom
+        
+    theta_k: angle of lamina
+    
+    Q = Q matrix for the lamina, if all ply are same material..
+        provide list of Q matrices of size n_lamina if not.
+    
+    """
+    ### make A,B,C,D numpy matrix filled with zeroes of size 3*3
+    A = np.zeros((3,3))
+    B = np.zeros((3,3))
+    D = np.zeros((3,3))
+    
+    ## make a list of Q_matrices
+    
+    if len(Q) == 1:
+        Q_matrices = Q * n_lamina
+    elif len(Q) == n_lamina:
+        Q_matrices = Q
+    else:
+        raise ValueError("Q matrix list is not of size n_lamina")
+    
+    for i in range(n_lamina):
+        
+        T = T_matrix(theta_k[i])
+        Q_bar = Q_bar_matrix(Q_matrices[i], T)
+        
+        diffh_k = h_k[i+1] - h_k[i]
+        square_diffh_k = h_k[i+1]**2 - h_k[i]**2
+        cube_diffh_k = h_k[i+1]**3 - h_k[i]**3
+        
+        A = A + Q_bar * diffh_k
+        B = B + Q_bar * square_diffh_k
+        D = D + Q_bar * cube_diffh_k
+        
+    B = B/2
+    D = D/3
+    
+    return A,B,D
+
+
+        
+    
+        
+        
+        
+        
+        
+        
+        
+    
 
     
